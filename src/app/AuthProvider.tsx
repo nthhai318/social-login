@@ -24,7 +24,7 @@ export const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<FetchUserAttributesOutput | null>(null);
   const [authError, setAuthError] = useState<unknown>(null);
   const [customState, setCustomState] = useState<string | null>(null);
 
