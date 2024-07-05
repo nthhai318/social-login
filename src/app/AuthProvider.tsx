@@ -2,12 +2,16 @@
 import React, { createContext, useEffect, useState } from "react";
 import { AuthUser, getCurrentUser } from "aws-amplify/auth";
 import { Hub } from "aws-amplify/utils";
+import { Amplify } from "aws-amplify";
+import config from "./../amplifyconfiguration.json";
 
 type AuthContextType = {
   user: AuthUser | null;
   customState: string | null;
   authError: unknown;
 };
+
+Amplify.configure(config);
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
