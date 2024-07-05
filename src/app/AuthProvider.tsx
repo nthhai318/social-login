@@ -15,8 +15,6 @@ type AuthContextType = {
   authError: unknown;
 };
 
-Amplify.configure(config);
-
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   customState: null,
@@ -39,6 +37,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    const origin = window.location.origin;
+    if (config.oauth !== undefined) {
+      config.oauth.redirectSignIn = `${origin}/`;
+      config.oauth.redirectSignOut = `${origin}/`;
+    } else return;
+
+    const oauthConfig = {
+      ...config.oauth,
+      redirectSignIn: `${origin}`,
+      redirectSignOut: `${origin}`,
+    };
+
+    const updatedConfig = { ...config, oauth: oauthConfig, ssr: true };
+
+    Amplify.configure(updatedConfig);
+
     const unsubscribe = Hub.listen("auth", ({ payload }) => {
       switch (payload.event) {
         case "signInWithRedirect":
