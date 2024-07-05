@@ -1,12 +1,12 @@
 "use client";
 
-import { signInWithRedirect } from "aws-amplify/auth";
+import { signInWithRedirect, signOut } from "aws-amplify/auth";
 import Image from "next/image";
 import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { user, customState } = useContext(AuthContext);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -51,13 +51,25 @@ export default function Home() {
           onClick={() => {
             signInWithRedirect({
               provider: "Google",
-              customState: "Login with Google",
+              customState: "Google",
             });
           }}
         >
           Login with Google
         </div>
-      ) : null}
+      ) : (
+        <div className="flex flex-col gap-4 justify-center items-center">
+          <div>
+            Login as {user.email} via {customState}
+          </div>
+          <div
+            className="border border-black dark:border-white rounded-lg px-2 py-1 text-lg cursor-pointer w-fit"
+            onClick={() => signOut()}
+          >
+            Sign out
+          </div>
+        </div>
+      )}
 
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a

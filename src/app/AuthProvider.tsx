@@ -1,12 +1,16 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
-import { AuthUser, getCurrentUser } from "aws-amplify/auth";
+import {
+  FetchUserAttributesOutput,
+  getCurrentUser,
+  fetchUserAttributes,
+} from "aws-amplify/auth";
 import { Hub } from "aws-amplify/utils";
 import { Amplify } from "aws-amplify";
 import config from "./../amplifyconfiguration.json";
 
 type AuthContextType = {
-  user: AuthUser | null;
+  user: FetchUserAttributesOutput | null;
   customState: string | null;
   authError: unknown;
 };
@@ -26,8 +30,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const getUser = async (): Promise<void> => {
     try {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
+      const userInfo = await fetchUserAttributes();
+      setUser(userInfo);
     } catch (error) {
       console.error(error);
       console.log("Not signed in");
@@ -53,9 +57,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return unsubscribe;
   }, []);
-
-  console.log("user: ", user);
-  console.log("customState: ", customState);
 
   return (
     <AuthContext.Provider
