@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sociallogin-dev-8f83d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::533267109907:role/amplify-sociallogin-dev-8f83d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::533267109907:role/amplify-sociallogin-dev-8f83d-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-sociallogin-dev-8f83d-deployment",
+      "UnauthRoleName": "amplify-sociallogin-dev-8f83d-unauthRole",
+      "StackName": "amplify-sociallogin-dev-8f83d",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:533267109907:stack/amplify-sociallogin-dev-8f83d/176af150-3ade-11ef-9f12-061bba60f975",
+      "AmplifyAppId": "drglked2xxath"
+    },
+    "categories": {
+      "auth": {
+        "sociallogin6f280756": {}
+      }
+    }
+  }
+}
