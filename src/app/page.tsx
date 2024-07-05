@@ -1,6 +1,13 @@
+"use client";
+
+import { signInWithRedirect } from "aws-amplify/auth";
 import Image from "next/image";
+import { useContext } from "react";
+import { AuthContext } from "./AuthProvider";
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -38,6 +45,19 @@ export default function Home() {
           priority
         />
       </div>
+      {user == null ? (
+        <div
+          className="border border-black dark:border-white rounded-lg px-2 py-1 text-lg cursor-pointer"
+          onClick={() => {
+            signInWithRedirect({
+              provider: "Google",
+              customState: "Login with Google",
+            });
+          }}
+        >
+          Login with Google
+        </div>
+      ) : null}
 
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a
